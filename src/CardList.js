@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+
+
 const CardList = (props) => {
   const navigate = useNavigate();
 
@@ -17,10 +19,13 @@ const CardList = (props) => {
             <CardTemp
               complete={list.completed}
               className="list_item"
+              key={idx}
             >
               <ButtonWrap>
                 <button>a</button>
-                <button>b</button>
+                <button onClick={() => {
+                  navigate("/Update");
+                }}>b</button>
                 <button>c</button>
               </ButtonWrap>
               <h1>{list.word}</h1>
@@ -45,9 +50,10 @@ const HomeWrap = styled.div`
 const CardWrap = styled.div`
   padding-top: 50px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
 `;
 

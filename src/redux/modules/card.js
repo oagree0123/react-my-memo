@@ -1,10 +1,18 @@
+import { db } from '../../firebase';
+import { 
+  collection,
+  doc,
+  getDocs
+} from 'firebase/firestore';
+
+
 // Action
 const LOAD = 'card/LOAD';
 const CREATE = 'card/CREATE';
 
 const initialState = {
   list: [
-    {
+    /* {
       word: "하하",
       def: "[하하]",
       exstr: "웃는 소리",
@@ -18,7 +26,7 @@ const initialState = {
       word: "하하3",
       def: "[하하]3",
       exstr: "웃는 소리3",
-    },   
+    }, */   
   ]
 }
 
@@ -32,16 +40,28 @@ export function createCard(card) {
 }
 
 //middlewares
+export const loadCardFB = () => {
+  return async function (dispatch) {
+    const card_data = await getDocs(collection(db, "card"));
+    let card_list = [];
 
+    card_data.forEach((v) => {
+      card_list.push({id: v.id, ...v.data()});
+    });
+
+    dispatch(loadCard(card_list));
+  }
+}
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case 'card/LOAD': {
-      return state;
+      return {list: action.card_list};
     }
     case 'card/CREATE': {
-      return state;
+      const new_card_list = [...state.list, action.card];
+      return {...state, list: new_card_list};
     }
     default:
       return state;

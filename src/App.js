@@ -1,12 +1,20 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Routes, Route, useNavigate} from 'react-router-dom'
+import { useDispatch } from "react-redux";
 
 import CardList  from './CardList';
 import Create from "./Create";
 import Update from "./Update";
+import { loadCardFB } from './redux/modules/card';
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadCardFB());
+  }, []);
 
   return (
     <div className="App">
@@ -14,7 +22,7 @@ function App() {
         navigate('/');
       }}>
         <LogoText>
-          중국어 단어장
+          나만의 메모장
         </LogoText>
       </Logo>
       <AppWrap>

@@ -1,17 +1,27 @@
 import React from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { createCard } from './redux/modules/card';
 
 const Create = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const wordRef = useRef('');
   const defRef = useRef('');
   const exstrRef = useRef('');
 
   const addCardList = () => {
-    dispatch();
+    dispatch(createCard({
+      word: wordRef.current.value,
+      def: defRef.current.value,
+      exstr: exstrRef.current.value,
+      completed: false,
+    }));
+    navigate('/');
   };
 
   return (
@@ -19,16 +29,16 @@ const Create = () => {
       <CreateTitle>단어 추가하기</CreateTitle>
       <FormWrap>
         <InputWrap>
-          <InputTitle for="input_word">단어</InputTitle>
-          <Input id="input_word" ref={wordRef}></Input>
+          <InputTitle >단어</InputTitle>
+          <Input type="text" id="input_word" ref={wordRef}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_def">설명</InputTitle>
-          <Input id="input_def" ref={defRef}></Input>
+          <InputTitle>설명</InputTitle>
+          <Input type="text" id="input_def" ref={defRef}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_exstr">예시</InputTitle>
-          <Input id="input_exstr" ref={exstrRef}></Input>
+          <InputTitle>예시</InputTitle>
+          <Input type="text" id="input_exstr" ref={exstrRef}></Input>
         </InputWrap>
         <FormButton type='submit' onClick={addCardList}>
           추가하기
