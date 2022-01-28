@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const CardList = () => {
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+const CardList = (props) => {
   const navigate = useNavigate();
+
+  const data = useSelector((state) => state.card.list);
 
   const [MemoWord, setMemoWord] = useState({
     word: "하하",
@@ -13,10 +17,12 @@ const CardList = () => {
     ex_ko: "나는 하하 웃었다."
   });
 
+  console.log(data);
+
   return (
     <HomeWrap>
       <CardWrap>
-        <Card>
+        <CardTemp>
           <ButtonWrap>
             <button>a</button>
             <button>b</button>
@@ -27,7 +33,7 @@ const CardList = () => {
           <p>{MemoWord.def}</p>
           <div>{MemoWord.ex_cn}</div>
           <div>{MemoWord.ex_ko}</div>
-        </Card>
+        </CardTemp>
       </CardWrap>
       <CreateButton onClick={() => {
         navigate('/Create');
@@ -48,7 +54,7 @@ const CardWrap = styled.div`
   width: 100%;
 `;
 
-const Card = styled.article`
+const CardTemp = styled.article`
   position: relative;
   width: calc((100% - 40px) / 3);
   border: 1px solid black;
