@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
@@ -9,31 +9,27 @@ const CardList = (props) => {
 
   const data = useSelector((state) => state.card.list);
 
-  const [MemoWord, setMemoWord] = useState({
-    word: "하하",
-    pinyin: "[하하]",
-    def: "웃는 소리",
-    ex_cn: "I'm haha",
-    ex_ko: "나는 하하 웃었다."
-  });
-
-  console.log(data);
-
   return (
     <HomeWrap>
       <CardWrap>
-        <CardTemp>
-          <ButtonWrap>
-            <button>a</button>
-            <button>b</button>
-            <button>b</button>
-          </ButtonWrap>
-          <h1>{MemoWord.word}</h1>
-          <p>{MemoWord.pinyin}</p>
-          <p>{MemoWord.def}</p>
-          <div>{MemoWord.ex_cn}</div>
-          <div>{MemoWord.ex_ko}</div>
-        </CardTemp>
+        {data.map((list, idx) => {
+          return (
+            <CardTemp
+              complete={list.completed}
+              className="list_item"
+            >
+              <ButtonWrap>
+                <button>a</button>
+                <button>b</button>
+                <button>c</button>
+              </ButtonWrap>
+              <h1>{list.word}</h1>
+              <p>{list.def}</p>
+              <p>{list.exstr}</p>
+            </CardTemp>
+          );
+        })}
+        
       </CardWrap>
       <CreateButton onClick={() => {
         navigate('/Create');
@@ -49,8 +45,9 @@ const HomeWrap = styled.div`
 const CardWrap = styled.div`
   padding-top: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 20px;
   width: 100%;
 `;
 

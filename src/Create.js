@@ -1,32 +1,38 @@
 import React from 'react';
+import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 const Create = () => {
+  const dispatch = useDispatch();
+
+  const wordRef = useRef('');
+  const defRef = useRef('');
+  const exstrRef = useRef('');
+
+  const addCardList = () => {
+    dispatch();
+  };
+
   return (
     <CreateWrap>
       <CreateTitle>단어 추가하기</CreateTitle>
       <FormWrap>
         <InputWrap>
           <InputTitle for="input_word">단어</InputTitle>
-          <Input id="input_word"></Input>
+          <Input id="input_word" ref={wordRef}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_pinyin">병음</InputTitle>
-          <Input id="input_pinyin"></Input>
+          <InputTitle for="input_def">설명</InputTitle>
+          <Input id="input_def" ref={defRef}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_def">의미</InputTitle>
-          <Input id="input_def"></Input>
+          <InputTitle for="input_exstr">예시</InputTitle>
+          <Input id="input_exstr" ref={exstrRef}></Input>
         </InputWrap>
-        <InputWrap>
-          <InputTitle for="input_ex_cn">예문</InputTitle>
-          <Input id="input_ex_cn"></Input>
-        </InputWrap>
-        <InputWrap>
-          <InputTitle for="input_ex_co">해석</InputTitle>
-          <Input id="input_ex_co"></Input>
-        </InputWrap>
-        <FormButton type='submit'>저장하기</FormButton>
+        <FormButton type='submit' onClick={addCardList}>
+          추가하기
+        </FormButton>
       </FormWrap>
     </CreateWrap>
   );

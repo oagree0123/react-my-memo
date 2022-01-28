@@ -1,34 +1,46 @@
 // Action
 const LOAD = 'card/LOAD';
+const CREATE = 'card/CREATE';
 
 const initialState = {
   list: [
     {
       word: "하하",
-      pinyin: "[하하]",
-      def: "웃는 소리",
-      ex_cn: "I'm haha",
-      ex_ko: "나는 하하 웃었다."
+      def: "[하하]",
+      exstr: "웃는 소리",
     },
     {
       word: "하하2",
-      pinyin: "[하하]2",
-      def: "웃는 소리2",
-      ex_cn: "I'm haha2",
-      ex_ko: "나는 하하 웃었다2."
-    }
+      def: "[하하]2",
+      exstr: "웃는 소리2",
+    },
+    {
+      word: "하하3",
+      def: "[하하]3",
+      exstr: "웃는 소리3",
+    },   
   ]
 }
 
 // Action Creaters
-export function loadBucket(card_list) {
+export function loadCard(card_list) {
   return {type: LOAD, card_list};
 }
+
+export function createCard(card) {
+  return {type: CREATE, card};
+}
+
+//middlewares
+
 
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case 'card/LOAD': {
+      return state;
+    }
+    case 'card/CREATE': {
       return state;
     }
     default:

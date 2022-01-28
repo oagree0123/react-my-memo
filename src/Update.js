@@ -1,43 +1,45 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 const Update = () => {
+  const wordRef = useRef('');
+  const defRef = useRef('');
+  const exstrRef = useRef('');
+
+  const updateCardList = () => {
+
+  }
+
   return (
-      <UpdateeWrap>
-      <UpdateeTitle>단어 수정하기</UpdateeTitle>
+      <UpdateWrap>
+      <UpdateTitle>단어 수정하기</UpdateTitle>
       <FormWrap>
-        <InputWrap>
+      <InputWrap>
           <InputTitle for="input_word">단어</InputTitle>
-          <Input id="input_word"></Input>
+          <Input id="input_word" ref={wordRef}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_pinyin">병음</InputTitle>
-          <Input id="input_pinyin"></Input>
+          <InputTitle for="input_def">설명</InputTitle>
+          <Input id="input_def" ref={defRef}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_def">의미</InputTitle>
-          <Input id="input_def"></Input>
+          <InputTitle for="input_exstr">예시</InputTitle>
+          <Input id="input_exstr" ref={exstrRef}></Input>
         </InputWrap>
-        <InputWrap>
-          <InputTitle for="input_ex_cn">예문</InputTitle>
-          <Input id="input_ex_cn"></Input>
-        </InputWrap>
-        <InputWrap>
-          <InputTitle for="input_ex_co">해석</InputTitle>
-          <Input id="input_ex_co"></Input>
-        </InputWrap>
-        <FormButton type='submit'>수정하기</FormButton>
+        <FormButton type='submit' onClick={updateCardList}>
+          수정하기
+        </FormButton>
       </FormWrap>
-    </UpdateeWrap>
+    </UpdateWrap>
   );
 };
 
-const UpdateeWrap = styled.div`
+const UpdateWrap = styled.div`
   max-width: 400px;
   margin: 80px auto;
 `;
 
-const UpdateeTitle = styled.h2`
+const UpdateTitle = styled.h2`
   margin: 20px 0;
   font-size: 18px;
   font-weight: 600;
