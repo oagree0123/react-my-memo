@@ -2,14 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { completeCardFB, deleteCardFB } from './redux/modules/card';
 
 
 
 const CardList = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const data = useSelector((state) => state.card.list);
+
+  const completeCard = (card_index, card_completed) => {
+    dispatch(completeCardFB(data[card_index].id, card_completed));
+  }
+
+  const deleteClick = (card_index) => {
+    dispatch(deleteCardFB(data[card_index].id));
+  }
 
   return (
     <HomeWrap>
@@ -17,20 +27,32 @@ const CardList = (props) => {
         {data.map((list, idx) => {
           return (
             <CardTemp
+              style={{
+                backgroundColor: list.completed ? 'green' : 'white'
+              }}
               complete={list.completed}
               className="list_item"
               key={idx}
             >
               <ButtonWrap>
-                <button>a</button>
+                <button
+                  onClick={() => {
+                    completeCard(idx, list.completed);
+                  }}
+                >a</button>
+                <button 
+                  onClick={() => {
+                    navigate("/Update");
+                  }} 
+                >b
+                </button>
                 <button onClick={() => {
-                  navigate("/Update");
-                }}>b</button>
-                <button>c</button>
+                  deleteClick(idx);
+                }}>c</button>
               </ButtonWrap>
               <h1>{list.word}</h1>
               <p>{list.def}</p>
-              <p>{list.exstr}</p>
+              <p style={{color:"blue"}}>{list.exstr}</p>
             </CardTemp>
           );
         })}

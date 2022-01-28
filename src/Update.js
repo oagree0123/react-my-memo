@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-const Update = () => {
+const Update = (props) => {
   const wordRef = useRef('');
   const defRef = useRef('');
   const exstrRef = useRef('');
@@ -10,21 +10,23 @@ const Update = () => {
 
   }
 
+  console.log(props)
+
   return (
       <UpdateWrap>
       <UpdateTitle>단어 수정하기</UpdateTitle>
       <FormWrap>
       <InputWrap>
-          <InputTitle for="input_word">단어</InputTitle>
-          <Input id="input_word" ref={wordRef}></Input>
+          <InputTitle >단어</InputTitle>
+          <Input id="input_word" ref={wordRef} value={props.word}></Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_def">설명</InputTitle>
-          <Input id="input_def" ref={defRef}></Input>
+          <InputTitle>설명</InputTitle>
+          <Input id="input_def" ref={defRef}>{props.def}</Input>
         </InputWrap>
         <InputWrap>
-          <InputTitle for="input_exstr">예시</InputTitle>
-          <Input id="input_exstr" ref={exstrRef}></Input>
+          <InputTitle>예시</InputTitle>
+          <Input id="input_exstr" ref={exstrRef}>{props.exstr}</Input>
         </InputWrap>
         <FormButton type='submit' onClick={updateCardList}>
           수정하기

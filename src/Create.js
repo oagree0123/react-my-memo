@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { createCard } from './redux/modules/card';
+import { createCardFB } from './redux/modules/card';
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Create = () => {
   const exstrRef = useRef('');
 
   const addCardList = () => {
-    dispatch(createCard({
+    dispatch(createCardFB({
       word: wordRef.current.value,
       def: defRef.current.value,
       exstr: exstrRef.current.value,
@@ -60,7 +60,7 @@ const CreateTitle = styled.h2`
   text-align: center;
 `;
 
-const FormWrap = styled.form`
+const FormWrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
