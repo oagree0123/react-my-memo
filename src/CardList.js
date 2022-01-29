@@ -42,7 +42,7 @@ const CardList = (props) => {
                 >a</button>
                 <button 
                   onClick={() => {
-                    navigate("/Update");
+                    navigate("/Update/" + list.id + "/edit");
                   }} 
                 >b
                 </button>

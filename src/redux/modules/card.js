@@ -5,7 +5,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  updateDoc
+  updateDoc,
 } from 'firebase/firestore';
 
 
@@ -45,8 +45,8 @@ export function createCard(card) {
   return {type: CREATE, card};
 }
 
-export function updateCard(card_index) {
-  return {type: UPDATE, card_index};
+export function updateCard(card_index, card) {
+  return {type: UPDATE, card_index, card};
 }
 
 export function completeCard(card_index) {
@@ -77,6 +77,20 @@ export const createCardFB = (card) => {
     const card_data = { id: docRef.id, ...card };
 
     dispatch(createCard(card_data));
+  }
+}
+
+export const updateCardFB = (card_id, card) => {
+  return async function (dispatch, getState) {
+    const docRef = doc(db, "card", card_id.card_id);
+    await updateDoc(docRef, card);
+
+    const _card_list = getState().card.list;
+    const card_index = _card_list.findIndex((v) => {
+      return v.id === card_id.card_id;
+    });
+
+    dispatch(updateCard(card_index, card));
   }
 }
 
@@ -124,6 +138,22 @@ export default function reducer(state = initialState, action = {}) {
     }
     case 'card/CREATE': {
       const new_card_list = [...state.list, action.card];
+      return {...state, list: new_card_list};
+    }
+    case 'card/UPDATE': {
+      const new_card_list = state.list.map((v, i) => {
+        if(parseInt(action.card_index) === i) { 
+          return {
+            ...v, 
+            word:action.card.word,
+            def:action.card.def,
+            exstr:action.card.exstr,
+          };
+        }else {
+          return v;
+        }
+      });
+
       return {...state, list: new_card_list};
     }
     case 'card/COMPLETE': {

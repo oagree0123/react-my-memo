@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route path='/' element={<CardList />}/>
           <Route path='/Create' element={<Create />}/>
-          <Route path='/Update' element={<Update />}/>
+          <Route path='/Update/:card_id/edit' element={<Update />}/>
         </Routes>
       </AppWrap>
     </div>
