@@ -28,31 +28,31 @@ const CardList = (props) => {
           return (
             <CardTemp
               style={{
-                backgroundColor: list.completed ? 'green' : 'white'
+                backgroundColor: list.completed ? '#db2727' : '#eee'
               }}
               complete={list.completed}
               className="list_item"
               key={idx}
             >
               <ButtonWrap>
-                <button
+                <CardButton
                   onClick={() => {
                     completeCard(idx, list.completed);
                   }}
-                >a</button>
-                <button 
+                >체크</CardButton>
+                <CardButton 
                   onClick={() => {
                     navigate("/Update/" + list.id + "/edit");
                   }} 
-                >b
-                </button>
-                <button onClick={() => {
+                >수정
+                </CardButton>
+                <CardButton onClick={() => {
                   deleteClick(idx);
-                }}>c</button>
+                }}>삭제</CardButton>
               </ButtonWrap>
               <h1>{list.word}</h1>
               <p>{list.def}</p>
-              <p style={{color:"blue"}}>{list.exstr}</p>
+              <p style={{color:"#271ced"}}>{list.exstr}</p>
             </CardTemp>
           );
         })}
@@ -60,7 +60,7 @@ const CardList = (props) => {
       </CardWrap>
       <CreateButton onClick={() => {
         navigate('/Create');
-      }} />
+      }}>추가</CreateButton>
     </HomeWrap>
   );
 };
@@ -80,16 +80,28 @@ const CardWrap = styled.div`
 `;
 
 const CardTemp = styled.article`
+  padding: 0 10px;
   position: relative;
-  width: calc((100% - 40px) / 3);
+  width: calc((100% - 100px) / 3);
   border: 1px solid black;
   border-radius: 5px;
+`;
+
+const CardButton = styled.button`
+  margin-right: 4px;
+  font-size: 8px;
+  border: 1px solid black;
+  background: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ButtonWrap = styled.div`
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 10px;
   display: flex;
 `;
 
@@ -99,7 +111,12 @@ const CreateButton = styled.div`
   right: 10px;
   width: 50px;
   height: 50px;
-  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  background-color: #9930c9;
   border-radius: 50px;
 `;
 

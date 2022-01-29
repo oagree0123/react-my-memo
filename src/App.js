@@ -39,6 +39,8 @@ function App() {
 const AppWrap = styled.div`
   padding: 0 50px;
   margin-top: 50px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
 `;
 
 const Logo = styled.div`
@@ -54,8 +56,9 @@ const Logo = styled.div`
   border-bottom: 1px solid black;
 `;
 
-const LogoText = styled.h1`
-  font-size: 28px;
+const LogoText = styled.p`
+  font-family: 'Gaegu', cursive;
+  font-size: 34px;
 `;
 
 export default App;
