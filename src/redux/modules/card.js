@@ -5,6 +5,9 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  limit,
+  orderBy,
+  query,
   updateDoc,
 } from 'firebase/firestore';
 
@@ -58,9 +61,12 @@ export function deleteCard(card_index) {
 }
 
 //middlewares
-export const loadCardFB = () => {
+export const loadCardFB = (item_num) => {
   return async function (dispatch) {
-    const card_data = await getDocs(collection(db, "card"));
+    console.log("load");
+    const q = query(collection(db, "card"), limit(item_num));
+
+    const card_data = await getDocs(q);
     let card_list = [];
 
     card_data.forEach((v) => {
@@ -153,7 +159,7 @@ export default function reducer(state = initialState, action = {}) {
           return v;
         }
       });
-
+      console.log(new_card_list);
       return {...state, list: new_card_list};
     }
     case 'card/COMPLETE': {

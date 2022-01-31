@@ -1,20 +1,12 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { Routes, Route, useNavigate} from 'react-router-dom'
-import { useDispatch } from "react-redux";
 
 import CardList  from './CardList';
 import Create from "./Create";
 import Update from "./Update";
-import { loadCardFB } from './redux/modules/card';
 
 function App() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadCardFB());
-  }, []);
 
   return (
     <div className="App">
@@ -53,7 +45,9 @@ const Logo = styled.div`
   width: 100%;
   height: 50px;
   margin: 0;
+  background-color: #fff;
   border-bottom: 1px solid black;
+  z-index: 1000;
 `;
 
 const LogoText = styled.p`

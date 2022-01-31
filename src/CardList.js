@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { completeCardFB, deleteCardFB } from './redux/modules/card';
-
-
+import { loadCardFB, completeCardFB, deleteCardFB } from './redux/modules/card';
+import { useInView } from 'react-intersection-observer';
 
 const CardList = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.card.list);
+
+  const [ref, inView] = useInView();
+  const [item, setItem] = useState(14);
+
+  useEffect(() => {
+    if(inView) {
+      setItem((prevState) => prevState + 8);
+      dispatch(loadCardFB(item));
+    };
+  }, [inView]);
 
   const completeCard = (card_index, card_completed) => {
     dispatch(completeCardFB(data[card_index].id, card_completed));
@@ -56,7 +65,7 @@ const CardList = (props) => {
             </CardTemp>
           );
         })}
-        
+        <MakeCont ref={ref}></MakeCont>
       </CardWrap>
       <CreateButton onClick={() => {
         navigate('/Create');
@@ -82,9 +91,13 @@ const CardWrap = styled.div`
 const CardTemp = styled.article`
   padding: 0 10px;
   position: relative;
-  width: calc((100% - 100px) / 3);
+  width: calc((100% - 98px) / 3);
   border: 1px solid black;
   border-radius: 5px;
+`;
+
+const MakeCont = styled.div`
+  height: 1px;
 `;
 
 const CardButton = styled.button`
