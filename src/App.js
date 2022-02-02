@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Routes, Route, useNavigate} from 'react-router-dom'
-import { useSelector } from "react-redux";
 
 import CardList  from './CardList';
 import Create from "./Create";
 import Update from "./Update";
+import { useEffect } from "react";
 
 function App() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<CardList />}/>
           <Route path='/Create' element={<Create />}/>
-          <Route path='/Update/:card_id/edit' element={<Update />}/>
+          <Route path='/Update/:card_id/:card_word/:card_def/:card_exstr/edit' element={<Update />}/>
         </Routes>
       </AppWrap>
     </div>

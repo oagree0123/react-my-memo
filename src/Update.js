@@ -13,11 +13,8 @@ const Update = (props) => {
   const defRef = useRef('');
   const exstrRef = useRef('');
 
-  const card_id = useParams();
-
-  const card_list = useSelector(state => state.card.list);
-
-  console.log(card_id);
+  const params = useParams();
+  const card_id = {card_id : params.card_id};
   
   const updateCardList = (card_id) => {
     dispatch(updateCardFB(card_id, {
@@ -28,11 +25,11 @@ const Update = (props) => {
     navigate('/');
   };
 
-  const _card = card_list.filter(v => {
+  /* const _card = props.card_list.filter(v => {
     return v.id === card_id.card_id;
-  })
+  }) */
 
-  console.log(card_list);
+  console.log(params)
 
   return (
       <UpdateWrap>
@@ -40,15 +37,15 @@ const Update = (props) => {
       <FormWrap action="">
       <InputWrap>
           <InputTitle >단어</InputTitle>
-          <Input id="input_word" ref={wordRef} defaultValue={1}></Input>
+          <Input id="input_word" ref={wordRef} defaultValue={params.card_word}></Input>
         </InputWrap>
         <InputWrap>
           <InputTitle>설명</InputTitle>
-          <Input id="input_def" ref={defRef} defaultValue={2}></Input>
+          <Input id="input_def" ref={defRef} defaultValue={params.card_def}></Input>
         </InputWrap>
         <InputWrap>
           <InputTitle>예시</InputTitle>
-          <Input id="input_exstr" ref={exstrRef} defaultValue={3}></Input>
+          <Input id="input_exstr" ref={exstrRef} defaultValue={params.card_exstr}></Input>
         </InputWrap>
         <FormButton type='button' onClick={() => {
           updateCardList(card_id);

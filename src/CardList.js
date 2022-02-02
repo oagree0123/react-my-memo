@@ -7,6 +7,8 @@ import { loadCardFB, completeCardFB, deleteCardFB } from './redux/modules/card';
 import { useInView } from 'react-intersection-observer';
 import localStorage from 'redux-persist/es/storage';
 
+let item = 9;
+
 const CardList = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,11 +16,12 @@ const CardList = (props) => {
   const data = useSelector((state) => state.card.list);
 
   const [ref, inView] = useInView();
-  const [item, setItem] = useState(13);
+  //const [item, setItem] = useState(13);
 
   useEffect(() => {
     if(inView) {
-      setItem((prevState) => prevState + 4);
+      //setItem((prevState) => prevState + 4);
+      item += 4;
       dispatch(loadCardFB(item));
     };
   }, [inView]);
@@ -52,7 +55,7 @@ const CardList = (props) => {
                 >체크</CardButton>
                 <CardButton 
                   onClick={() => {
-                    navigate("/Update/" + list.id + "/edit");
+                    navigate("/Update/" + list.id + '/' + list.word + '/' + list.def + '/' + list.exstr + "/edit");
                   }}
                 >수정
                 </CardButton>
