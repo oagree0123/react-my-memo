@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCardFB, completeCardFB, deleteCardFB } from './redux/modules/card';
 import { useInView } from 'react-intersection-observer';
+import localStorage from 'redux-persist/es/storage';
 
 const CardList = (props) => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const CardList = (props) => {
   const data = useSelector((state) => state.card.list);
 
   const [ref, inView] = useInView();
-  const [item, setItem] = useState(14);
+  const [item, setItem] = useState(13);
 
   useEffect(() => {
     if(inView) {
