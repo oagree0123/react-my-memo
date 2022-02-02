@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { updateCardFB } from './redux/modules/card';
+import { editCardFB } from './redux/modules/edit';
 
 const Update = (props) => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const Update = (props) => {
 
   const params = useParams();
   const card_id = {card_id : params.card_id};
+
+  const card_data = useSelector(state => state.edit.list);
   
   const updateCardList = (card_id) => {
     dispatch(updateCardFB(card_id, {
@@ -25,11 +28,13 @@ const Update = (props) => {
     navigate('/');
   };
 
-  /* const _card = props.card_list.filter(v => {
+  const _card = card_data.filter(v => {
     return v.id === card_id.card_id;
-  }) */
+  })
 
-  console.log(params)
+  useEffect(() => {
+    dispatch(editCardFB(card_id));
+  },[]);
 
   return (
       <UpdateWrap>
@@ -37,15 +42,15 @@ const Update = (props) => {
       <FormWrap action="">
       <InputWrap>
           <InputTitle >단어</InputTitle>
-          <Input id="input_word" ref={wordRef} defaultValue={params.card_word}></Input>
+          <Input id="input_word" ref={wordRef} defaultValue={_card[0].word}></Input>
         </InputWrap>
         <InputWrap>
           <InputTitle>설명</InputTitle>
-          <Input id="input_def" ref={defRef} defaultValue={params.card_def}></Input>
+          <Input id="input_def" ref={defRef} defaultValue={_card[0].def}></Input>
         </InputWrap>
         <InputWrap>
           <InputTitle>예시</InputTitle>
-          <Input id="input_exstr" ref={exstrRef} defaultValue={params.card_exstr}></Input>
+          <Input id="input_exstr" ref={exstrRef} defaultValue={_card[0].exstr}></Input>
         </InputWrap>
         <FormButton type='button' onClick={() => {
           updateCardList(card_id);
