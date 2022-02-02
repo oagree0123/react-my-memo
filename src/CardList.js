@@ -17,7 +17,7 @@ const CardList = (props) => {
 
   useEffect(() => {
     if(inView) {
-      setItem((prevState) => prevState + 8);
+      setItem((prevState) => prevState + 4);
       dispatch(loadCardFB(item));
     };
   }, [inView]);
@@ -52,7 +52,7 @@ const CardList = (props) => {
                 <CardButton 
                   onClick={() => {
                     navigate("/Update/" + list.id + "/edit");
-                  }} 
+                  }}
                 >수정
                 </CardButton>
                 <CardButton onClick={() => {
@@ -65,8 +65,8 @@ const CardList = (props) => {
             </CardTemp>
           );
         })}
-        <MakeCont ref={ref}></MakeCont>
       </CardWrap>
+      <MakeCont ref={ref}></MakeCont>
       <CreateButton onClick={() => {
         navigate('/Create');
       }}>추가</CreateButton>
@@ -97,7 +97,10 @@ const CardTemp = styled.article`
 `;
 
 const MakeCont = styled.div`
-  height: 1px;
+  margin-top: 50px;
+  height: 50px;
+  background-color: #fff;
+  z-index: 1000;
 `;
 
 const CardButton = styled.button`

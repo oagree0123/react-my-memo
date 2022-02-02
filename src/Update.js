@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,6 +15,8 @@ const Update = (props) => {
 
   const card_id = useParams();
 
+  const card_list = useSelector(state => state.card.list);
+  
   const updateCardList = (card_id) => {
     dispatch(updateCardFB(card_id, {
       word: wordRef.current.value,
@@ -24,21 +26,25 @@ const Update = (props) => {
     navigate('/');
   };
 
+  const _card = card_list.filter(v => {
+    return v.id === card_id.card_id;
+  })
+
   return (
       <UpdateWrap>
       <UpdateTitle>단어 수정하기</UpdateTitle>
       <FormWrap>
       <InputWrap>
           <InputTitle >단어</InputTitle>
-          <Input id="input_word" ref={wordRef}></Input>
+          <Input id="input_word" ref={wordRef} defaultValue={_card[0].word}></Input>
         </InputWrap>
         <InputWrap>
           <InputTitle>설명</InputTitle>
-          <Input id="input_def" ref={defRef}></Input>
+          <Input id="input_def" ref={defRef} defaultValue={_card[0].def}></Input>
         </InputWrap>
         <InputWrap>
           <InputTitle>예시</InputTitle>
-          <Input id="input_exstr" ref={exstrRef}></Input>
+          <Input id="input_exstr" ref={exstrRef} defaultValue={_card[0].exstr}></Input>
         </InputWrap>
         <FormButton type='submit' onClick={() => {
           updateCardList(card_id);
